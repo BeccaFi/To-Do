@@ -1,0 +1,58 @@
+header {
+    width: 100%;
+    margin: 0;
+    box-shadow: 0 4px 6px -6px #8d8d8d;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#logo {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: purple;
+    margin-left: 20px;
+}
+
+#logo:hover {
+    cursor: pointer;
+}
+
+header div {
+    margin: 0 50px 0 0px;
+    padding: 20px;
+}
+
+#login-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+}
+
+#register-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+    margin-left: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(43, 43, 43);
+    text-align: center;
+    margin-top: 5rem;
+}

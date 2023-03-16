@@ -1,0 +1,85 @@
+header {
+    width: 100%;
+    margin: 0;
+    box-shadow: 0 4px 6px -6px #8d8d8d;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#logo {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: purple;
+    margin-left: 20px;
+}
+
+#logo:hover {
+    cursor: pointer;
+}
+
+header div {
+    margin: 0 50px 0 0px;
+    padding: 20px;
+}
+
+#login-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+}
+
+#register-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+    margin-left: 0.5rem;
+}
+
+button:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+form {
+    max-width: 300px;
+    height: 300px;
+    margin: 30px auto;
+    padding-bottom: 40px;
+    border-radius: 20px;
+    background-color: rgb(210, 210, 210);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+form label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+
+}
+
+#registerSubmit {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 6px 12px;
+    font-size: 16px;
+}
