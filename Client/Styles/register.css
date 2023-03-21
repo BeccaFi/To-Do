@@ -11,8 +11,8 @@ header {
 
 #logo {
     font-size: 30px;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: cursive;
+    text-decoration: underline;
     color: purple;
     margin-left: 20px;
 }

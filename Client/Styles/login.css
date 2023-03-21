@@ -11,8 +11,8 @@ header {
 
 #logo {
     font-size: 30px;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: cursive;
+    text-decoration: underline;
     color: purple;
     margin-left: 20px;
 }
@@ -36,14 +36,16 @@ header div {
 }
 
 #register-btn {
-    background-color: purple;
+    background-color: rgb(54, 54, 54);;
     color: white;
     border-radius: 10px;
     border: none;
     padding: 8px 14px;
     font-size: 18px;
     margin-left: 0.5rem;
+    margin-right: 2rem;
 }
+
 
 button:hover {
     cursor: pointer;
@@ -82,4 +84,8 @@ form label {
     border: none;
     padding: 6px 12px;
     font-size: 16px;
+}
+
+h2 {
+    text-align: center;
 }

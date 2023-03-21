@@ -11,8 +11,8 @@ header {
 
 #logo {
     font-size: 30px;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: cursive;
+    text-decoration: underline;
     color: purple;
     margin-left: 20px;
 }
@@ -21,8 +21,28 @@ header {
     cursor: pointer;
 }
 
+#profile-header-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
 #logout-btn {
+    background-color: rgb(54, 54, 54);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+    margin: 0 2rem 0 1rem;
+}
+
+#logout-btn:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+#login-btn {
     background-color: purple;
     color: white;
     border-radius: 10px;
@@ -30,9 +50,114 @@ header {
     padding: 8px 14px;
     font-size: 18px;
     margin: 0 50px 0 0px;
+    display: none;
 }
 
-#logout-btn:hover {
+#login-btn:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+#create-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+    /* margin: 0 50px 0 0px; */
+}
+
+#create-btn:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+#add-friend-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+    margin: 0 0 0 1rem;
+    display: none;
+}
+
+#add-friend-btn:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+h2 {
+    text-align: center;
+}
+
+#todo-list {
+    border: solid 1px black;
+    width: 300px;
+    margin: 0 auto;
+}
+
+#all-todos {
+    border: solid 1px black;
+    width: 300px;
+    margin: 50px 10px 10px 20px;
+}
+
+h3 {
+    text-align: center;
+}
+
+
+#all-todos button {
+    list-style: none;
+    background-color: rgb(158, 158, 158);
+    display: block;
+    margin-bottom: 2px;
+    padding: 6px;
+    width: 100%;
+    text-align: left;
+    border: none;
+}
+
+#all-todos button:hover {
+    filter: brightness(150%);
+    cursor: pointer;
+}
+
+#chosen-list {
+    border: solid 1px black;
+    width: 500px;
+    margin-left: 3rem;
+    display: none;
+}
+
+#profile-containers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#friend-container {
+    border: solid 1px black;
+    width: 300px;
+    margin-top: 3rem;
+    margin-right: 5rem;
+    top: 10rem;
+    right: 0;
+    position: absolute;
+    display: none;
+}
+
+.friends {
+    border: none;
+    width: 100%;
+    background-color: beige;
+}
+
+.friends:hover {
     cursor: pointer;
     filter: brightness(150%);
 }

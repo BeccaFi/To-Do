@@ -11,8 +11,8 @@ header {
 
 #logo {
     font-size: 30px;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: cursive;
+    text-decoration: underline;
     color: purple;
     margin-left: 20px;
 }
@@ -26,6 +26,15 @@ header div {
     padding: 20px;
 }
 
+#profile-btn {
+    background-color: purple;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 8px 14px;
+    font-size: 18px;
+}
+
 #login-btn {
     background-color: purple;
     color: white;
@@ -36,7 +45,7 @@ header div {
 }
 
 #register-btn {
-    background-color: purple;
+    background-color: rgb(54, 54, 54);;
     color: white;
     border-radius: 10px;
     border: none;
