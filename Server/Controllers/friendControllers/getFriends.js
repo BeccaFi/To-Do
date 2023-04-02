@@ -13,7 +13,10 @@ exports.getFriends = function getFriends (req, res) {
     const {Username} = req.user;
 
     const sql = `
-    SELECT Friend FROM Friends WHERE Username = ?`;
+    SELECT u.Username AS U_Username, f.Username AS F_Username, f.Friend
+    FROM Users u
+    JOIN Friends f ON u.Username = f.Username OR u.Username = f.Friend
+    WHERE u.Username = ?`;
   
     pool.execute(sql, [Username], (error, result) => {
       if (error) {

@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 header {
     width: 100%;
     margin: 0;
@@ -92,12 +96,12 @@ header {
 h2 {
     text-align: center;
 }
-
+/* 
 #todo-list {
     border: solid 1px black;
     width: 300px;
     margin: 0 auto;
-}
+} */
 
 #all-todos {
     border: solid 1px black;
@@ -133,10 +137,11 @@ h3 {
     display: none;
 }
 
+
 #profile-containers {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 }
 
@@ -159,5 +164,143 @@ h3 {
 
 .friends:hover {
     cursor: pointer;
+    filter: brightness(150%);
+}
+
+
+form {
+    border: solid 1px black;
+    width: 550px;
+    margin-left: 3rem;
+    display: none;
+}
+
+#form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+.addedDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 250px;
+  
+}
+
+.allNewTodos {
+    width: 200px;
+    list-style: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.buttonDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#replaceTodoBtn {
+    display: none;
+}
+
+#submitCreatedListBtn {
+    margin: 0 1rem 0.5rem 1rem;
+}
+
+#chosenListBtns {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.chosenSingleTodos {
+    background-color: rgb(239, 206, 206);
+    width: 100%;
+    list-style: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+
+}
+
+
+.chosenSingleTodos:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+#todo-ul {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+.checked {
+    background-color: rgb(72, 252, 120);
+    text-decoration: line-through;
+}
+
+
+.listDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.listButtonsDiv {
+    display: flex;
+}
+
+#deleteListPopup {
+    border: 1px solid black;
+    padding: 1rem 1rem 0rem 1rem;
+    box-shadow: 0 10px 20px -6px #8d8d8d;
+    border-radius: 10px;
+    width: 420px;
+    display: none;
+}
+
+#deleteListPopup div {
+    margin: 10px auto;
+    width: 300px;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+#yesBtn {
+    background-color: rgb(150, 255, 150);
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid green;
+}
+
+#yesBtn:hover {
+    filter: brightness(150%);
+}
+
+#noBtn {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid rgb(145, 0, 0);
+}
+
+#noBtn:hover {
     filter: brightness(150%);
 }

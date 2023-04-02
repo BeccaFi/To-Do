@@ -10,7 +10,6 @@ const pool = mysql.createPool(config);
 
 exports.getTodoLists = function getTodoLists (req, res) {
     const {Username} = req.user;
-
   const sql = `
   SELECT * FROM ToDoLists WHERE Username = ?`;
 

@@ -28,10 +28,44 @@
 
     <div id="chosen-list">
         <h3 id="chosen-title"></h3>
-        <ul>
-
+        <ul id="todo-ul">
+            
         </ul>
     </div>
+
+    <div id="deleteListPopup">
+        <h2>Are you sure?</h2>
+        <p>The entire list and its todo's will be permanently removed.</p>
+        <div>
+            <button id="yesBtn">Yes, delete list</button>
+            <button id="noBtn">Cancel</button>
+        </div>
+      
+    </div>
+
+    <form action="">
+        <h3>New List</h3>
+
+        <div id="form-container">
+        <div>
+            <label for="newListTitle">Name</label>
+            <br>
+            <input type="text" id="newListTitle" name="newListName" required>
+            <br><br>
+            <input type="text" id="newTodo" placeholder="New todo" name="newTodo" autofocus>
+            <button id="addTodoBtn">Add</button>
+            <button id="replaceTodoBtn">Replace</button>
+        </div>
+        <div id="addedTodosContainer">
+            <ul id="addedTodos">
+
+            </ul>
+        </div>
+    </div>
+        <br>
+        <button id="submitCreatedListBtn">Create</button>
+        <h3 id="addedH3" style="display: none">List added!</h3>
+    </form>
 </div>
 
 <div id="friend-container">

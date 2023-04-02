@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser')
 
 const { friendRoute } = require('./Routes/friendRoute');
 const { authenticationRoute } = require('./Routes/authenticationRoute');
@@ -16,6 +17,7 @@ server.use(cors({
 
 server.use(express.json());
 server.use(cookieParser());
+server.use(bodyParser.json());
 
 server.use('/friends', friendRoute);
 server.use('/authentication', authenticationRoute);
