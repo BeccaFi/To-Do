@@ -395,6 +395,8 @@ button {
     border-radius: 10px;
     width: 420px;
     display: none;
+    position: absolute;
+    background-color: white;
 }
 
 #deleteListPopup div {

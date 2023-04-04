@@ -436,7 +436,7 @@ loginBtn.addEventListener('click', (e) => {
                     });
 
                     const unfriendData = await unfriendResponse.json();
-                    console.log(unfriendData);
+                    // console.log(unfriendData);
 
                 })
             })

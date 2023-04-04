@@ -8,7 +8,26 @@ const config = {
   };
 const pool = mysql.createPool(config);
 
-//Future
-exports.removeFriend = function removeFriend (req, res) {
 
+exports.removeFriend = function removeFriend (req, res) {
+  const {Username} = req.user;
+
+  const {Friend} = req.query;
+
+  
+const sql = `
+DELETE FROM Friends
+WHERE (Username = ? AND Friend = ?)
+OR (Username = ? AND Friend = ?)`;
+
+pool.execute(sql, [Username, Friend, Friend, Username], (error, result) => {
+  if (error) {
+    console.log(error);
+    res.sendStatus(500);
+    return;
+  }
+  
+  res.status(200).json(result);
+  return;
+})
 }
