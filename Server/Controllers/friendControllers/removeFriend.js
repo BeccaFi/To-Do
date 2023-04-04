@@ -9,6 +9,6 @@ const config = {
 const pool = mysql.createPool(config);
 
 //Future
-exports.removeFriends = function removeFriends (req, res) {
+exports.removeFriend = function removeFriend (req, res) {
 
 }

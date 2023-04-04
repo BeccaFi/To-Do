@@ -8,16 +8,17 @@ const config = {
   };
 const pool = mysql.createPool(config);
 
-exports.postFriends = function postFriend (req, res) {
+exports.addFriend = function addFriend (req, res) {
     const {Username} = req.user;
-    // const {Friend} = 'blabla hitta lösning';
-    // Validering ej fixad än
+
+    const {friendToAdd} = req.body;
+  
   
     const sql = `
     INSERT INTO Friends (Username, Friend)
     VALUES (?, ?)`;
   
-    pool.execute(sql, [Username, Friend], (error, result) => {
+    pool.execute(sql, [Username, friendToAdd], (error, result) => {
       if (error) {
         console.log(error);
         res.sendStatus(500);

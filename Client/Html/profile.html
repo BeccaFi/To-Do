@@ -10,21 +10,44 @@
 <body>
     <header>
         <p id="logo">Get your shit together</p>
+       
         <div id="profile-header-right">
             <button id="create-btn">Create List</button>
-            <button id="add-friend-btn">Add friend</button>
+            <button id="profile-btn">My profile</button>
             <button id="logout-btn">Logout</button>
             <button id="login-btn">Login</button>
         </div>
     </header>
 
     <h2></h2>
-
+    <form id="search-form" autocomplete="off">
+        <div id="search">
+            <input type="text" id="search-input" placeholder="Search users..." >
+            <button id="add-friend-btn">Add</button>
+        </div>
+        <h4></h4>
+        <ul class="search-ul">
+            
+        </ul>
+    </form>
+   
 
   <div id="profile-containers">
     <div id="all-todos">
         <h3>Your todo-lists:</h3>
     </div>
+
+    <div id="error-friend-popup">
+        <h3 id="error-friend-h3"></h3>
+        <button id="ef-popup-ok"></button>
+    </div>
+
+    <div id="add-friend-popup">
+        <h3 id="add-friend-h3"></h3>
+        <button id="add-friend-confirm">Add</button>
+        <button id="cancel-add-friend">Cancel</button>
+    </div>
+
 
     <div id="chosen-list">
         <h3 id="chosen-title"></h3>
@@ -43,7 +66,7 @@
       
     </div>
 
-    <form action="">
+    <form id="create-form" action="">
         <h3>New List</h3>
 
         <div id="form-container">
@@ -72,6 +95,30 @@
     <h3>Friends:</h3>
 </div>
 
+
+
+<button id="unfriend">Unfriend</button>
+<div id="unfriend-div">
+    <h3 id="unfriend-h3">Remove -blabla- from friends?</h3>
+    <button id="unfriend-yes-btn">Yes</button>
+    <button id="unfriend-no-btn">No</button>
+</div>
+
+<div id="friend-profile">
+
+    <div id="friend-all-todos">
+        <h3>Todo-lists:</h3>
+    </div>
+ 
+
+    <div id="friend-clicked-list">
+        <h3 id="friend-clicked-title"></h3>
+        <ul id="friend-todo-ul">
+            
+        </ul>
+    </div>
+
+</div>
     <script src="../JS/profile.js" type="module"></script>
 </body>
 </html>

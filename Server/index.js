@@ -23,4 +23,14 @@ server.use('/friends', friendRoute);
 server.use('/authentication', authenticationRoute);
 server.use('/profile', profileRoute)
 
+
+server.get('friends/todoLists', (req, res) => {
+
+  const {Friend} = req.query;
+  console.log(Friend);
+
+  res.sendStatus(200);
+
+})
+
 server.listen(5050);

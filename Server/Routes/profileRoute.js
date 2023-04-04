@@ -1,6 +1,7 @@
 const express = require('express');
 const { createList, createTodos } = require('../Controllers/profileControllers/createNewList');
 const { deleteList, deleteTodosFromDeletedList } = require('../Controllers/profileControllers/deleteList');
+const { getAllUsers } = require('../Controllers/profileControllers/getAllUsers');
 const { getListTodos } = require('../Controllers/profileControllers/getListTODOS');
 const { getTodoLists } = require('../Controllers/profileControllers/getTodoLists');
 const { userProfile } = require('../Controllers/profileControllers/userProfile');
@@ -15,6 +16,7 @@ profileRoute.post('/createNewList', authentication, createList);
 profileRoute.post('/createTodos', authentication, createTodos);
 
 profileRoute.delete('/deleteList', authentication, deleteList);
-// profileRoute.delete('/deleteTodos', authentication, deleteTodosFromDeletedList);
+
+profileRoute.get('/users', authentication, getAllUsers);
 
 exports.profileRoute = profileRoute;
