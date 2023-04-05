@@ -28,6 +28,8 @@ CREATE TABLE `Friends` (
   `Username` varchar(30) NOT NULL,
   `Friend` varchar(30) NOT NULL,
   PRIMARY KEY (`Username`,`Friend`),
+  UNIQUE KEY `Username` (`Username`,`Friend`),
+  UNIQUE KEY `Friendship` (`Username`,`Friend`),
   KEY `Friend` (`Friend`),
   CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`Username`) REFERENCES `Users` (`Username`),
   CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`Friend`) REFERENCES `Users` (`Username`)
@@ -40,7 +42,7 @@ CREATE TABLE `Friends` (
 
 LOCK TABLES `Friends` WRITE;
 /*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
-INSERT INTO `Friends` VALUES ('test','test2'),('test','test3');
+INSERT INTO `Friends` VALUES ('test','test2'),('test','test3'),('test6','test3'),('test','test4'),('test4','test5'),('test6','test5');
 /*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,12 +55,12 @@ DROP TABLE IF EXISTS `ToDoLists`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ToDoLists` (
   `List_ID` int NOT NULL AUTO_INCREMENT,
-  `ListName` varchar(30) NOT NULL,
+  `ListName` varchar(50) NOT NULL,
   `Username` varchar(50) NOT NULL,
   PRIMARY KEY (`List_ID`),
   KEY `Username` (`Username`),
   CONSTRAINT `todolists_ibfk_1` FOREIGN KEY (`Username`) REFERENCES `Users` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +69,7 @@ CREATE TABLE `ToDoLists` (
 
 LOCK TABLES `ToDoLists` WRITE;
 /*!40000 ALTER TABLE `ToDoLists` DISABLE KEYS */;
-INSERT INTO `ToDoLists` VALUES (1,'Monday','test'),(2,'Birthday Party','test'),(3,'At the office','test');
+INSERT INTO `ToDoLists` VALUES (1,'Monday','test'),(71,'My first List!','test2'),(72,'My second list!','test2'),(83,'Tuesday','test');
 /*!40000 ALTER TABLE `ToDoLists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,10 +84,11 @@ CREATE TABLE `Todos` (
   `List_ID` int NOT NULL,
   `ID` int NOT NULL AUTO_INCREMENT,
   `Todo` varchar(300) DEFAULT NULL,
+  `Done` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
-  KEY `List_ID` (`List_ID`),
-  CONSTRAINT `todos_ibfk_1` FOREIGN KEY (`List_ID`) REFERENCES `ToDoLists` (`List_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `todos_ibfk_1` (`List_ID`),
+  CONSTRAINT `todos_ibfk_1` FOREIGN KEY (`List_ID`) REFERENCES `ToDoLists` (`List_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +97,7 @@ CREATE TABLE `Todos` (
 
 LOCK TABLES `Todos` WRITE;
 /*!40000 ALTER TABLE `Todos` DISABLE KEYS */;
-INSERT INTO `Todos` VALUES (1,1,'Laundry'),(1,2,'Grocery Shopping'),(2,3,'Get new speakers');
+INSERT INTO `Todos` VALUES (1,1,'Laundry',1),(1,2,'Grocery Shopping',0),(71,22,'Celebrate',0),(71,23,'Get cake',1),(72,24,'More cake',1),(72,25,'Finish website',0),(72,26,'Cry',0),(83,58,'Learn to center div',0),(83,59,'Make lunch boxes',0),(83,60,'Cry about center div',1);
 /*!40000 ALTER TABLE `Todos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +124,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES ('test','$2b$10$RWucAn3uKhNrOdNwsO1RwuXVWqWh8wWI1ofjpI3MAzeVxsVOmm4Um','test@testsson.se'),('test2','$2b$10$fkrddEDbx4yauAZ4d8X3N.r5V3NW1pxy/VrDTZPYRxjDJiaUMI6vy','test2@fdsfd.se'),('test3','$2b$10$dcN4PqmLDhDzvG7rSeq14.9pirGBohtNwrrEgkkQynJNV.z.fq2Fe','test3@ffs.se'),('test4','$2b$10$HRLqLKgsMck/G6hK3rPkiuYRk4py3/hDpuxZd6MGGTIa.4ZzWXnna','test4@testsson.se'),('test5','$2b$10$GOXGZVbAtBdQl7twO4TXtu1xtRLynRNjDkY6iJ/Rf8ZxqRJhGvsYO','test5@testsson.se'),('test6','$2b$10$Edt/A0s1MG2QptRsNhH.luYnI8.TqViUbUMT41RvTQKaAuG.zuI6.','test6@testsson.se');
+INSERT INTO `Users` VALUES ('aaatest','$2b$10$KKkcudybHCmXTtAzRthLgOULxK8e7Oo/mvydm3s/EpBOja7tpNJi.','becca@blaha.se'),('test','$2b$10$RWucAn3uKhNrOdNwsO1RwuXVWqWh8wWI1ofjpI3MAzeVxsVOmm4Um','test@testsson.se'),('test2','$2b$10$fkrddEDbx4yauAZ4d8X3N.r5V3NW1pxy/VrDTZPYRxjDJiaUMI6vy','test2@fdsfd.se'),('test3','$2b$10$dcN4PqmLDhDzvG7rSeq14.9pirGBohtNwrrEgkkQynJNV.z.fq2Fe','test3@ffs.se'),('test4','$2b$10$HRLqLKgsMck/G6hK3rPkiuYRk4py3/hDpuxZd6MGGTIa.4ZzWXnna','test4@testsson.se'),('test5','$2b$10$GOXGZVbAtBdQl7twO4TXtu1xtRLynRNjDkY6iJ/Rf8ZxqRJhGvsYO','test5@testsson.se'),('test6','$2b$10$Edt/A0s1MG2QptRsNhH.luYnI8.TqViUbUMT41RvTQKaAuG.zuI6.','test6@testsson.se'),('test7','$2b$10$Eedh72qMtD.Dy9NBH8QJzeRWA.w.hrldJSL80jXGZTZgyxeNtIKja','test7@test7sson.se'),('test8','$2b$10$NsGqO1D3qcPyqNEufJJiwOx/E.SIQPWgywsxwx0B.G0SFYeHk.5Qu','safasf@fsfss.se');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -134,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-21 23:54:29
+-- Dump completed on 2023-04-05 21:29:28
