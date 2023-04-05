@@ -8,14 +8,10 @@ const config = {
   };
 const pool = mysql.createPool(config);
 
-//Måste getta alla listor med username.
-// Sen ta list_id för klickade listan och hämta ut alla todos med samma list_id.
+
 exports.getFriendTodos = function getFriendTodos (req, res) {
     const {username} = req.user;
-
     const {Friend} = req.query;
-
-  // const {List_ID} = req.todoList; //req.todoList behöver innehålla en key som heter List_ID. HurrrrrR???
 
   const sql = `
   SELECT * FROM Todos`;

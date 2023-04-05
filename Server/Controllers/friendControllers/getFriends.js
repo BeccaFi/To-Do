@@ -19,12 +19,8 @@ exports.getFriends = function getFriends (req, res) {
     WHERE u.Username = ?`;
   
     pool.execute(sql, [Username], (error, result) => {
-      if (error) {
-        console.log(error);
-        res.sendStatus(500);
-        return;
-      }
-      res.status(200).json(result);
-      return;
+      if (error) return res.sendStatus(500);
+
+      return res.status(200).json(result);
     })
 }

@@ -1,5 +1,8 @@
 ### To-Do Application
 
-### For testing:
+### Existing accounts for testing:
 #### Username: test
 #### Password: abcd
+
+#### Username: test2 (already friends)
+#### Username: 1234

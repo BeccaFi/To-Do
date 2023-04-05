@@ -9,24 +9,24 @@ const config = {
   };
 const pool = mysql.createPool(config);
 
-exports.deleteList = function deleteList (req, res) {
+exports.deleteTodos = function deleteTodos (req, res) {
     const {Username} = req.user;
 
     const schema = joi.object({
-      listId: joi.number().required()
+      todoId: joi.number().required()
     });
   
     const validation = schema.validate(req.query);
   
     if (validation.error) return res.status(500).send(validation.error.details[0].message);
 
-    const List_ID = req.query.listId;
+    const {todoId} = req.query;
 
   const sql = `
-  DELETE FROM ToDoLists
-  WHERE List_ID = ? AND Username = ?`;
+  DELETE FROM Todos
+  WHERE ID = ?`;
 
-  pool.execute(sql, [List_ID, Username], (error, result) => {
+  pool.execute(sql, [todoId], (error, result) => {
     if (error) return res.sendStatus(500);
     
     return res.status(200).json(result);

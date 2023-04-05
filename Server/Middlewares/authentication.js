@@ -2,12 +2,9 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET;
 
 function authentication(req, res, next) {
-    console.log('Authentication test'); //Will be removed after finishing
     const authToken = req.cookies.authToken;
   
-    if(!authToken){
-      return res.status(401).send('Access denied');
-    }
+    if(!authToken) return res.status(401).send('Access denied');
 
     try {
       const verified = jwt.verify(authToken, secret);

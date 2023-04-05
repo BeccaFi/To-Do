@@ -15,8 +15,6 @@ exports.registerUser = function registerUser (req, res) {
     const {username, password, confirmPassword, email} = req.body;
 
   const hashedPassword = bcrypt.hashSync(password, 10);
-  console.log(hashedPassword);
-
 
   const schema = joi.object({
     email: joi.string().email().required(),
@@ -26,22 +24,16 @@ exports.registerUser = function registerUser (req, res) {
   });
 
   const validation = schema.validate(req.body);
-  if (validation.error) {
-   res.status(400).send(validation.error.details[0].message);
-    console.log(validation.error.details[0].message);
-    return;
-  }
+  if (validation.error) return res.status(400).send(validation.error.details[0].message);
 
   const sql = `INSERT INTO users (Username, Password, Email)
   VALUES (?, ?, ?)`;
 
   pool.execute(sql, [username, hashedPassword, email], (error, result) => {
     if (error) {
-      if (error.errno === 1062) {
-        res.status(500).send('The email or username you have entered already exists. Please choose another one.')
-        return;
-      }
-       return res.status(500).send(error);
+      if (error.errno === 1062) return res.status(500).send('The email or username you have entered already exists. Please choose another one.')
+      
+      else return res.status(500).send(error);
     }
 
       res.sendStatus(201);

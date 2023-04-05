@@ -14,13 +14,8 @@ exports.getTodoLists = function getTodoLists (req, res) {
   SELECT * FROM ToDoLists WHERE Username = ?`;
 
   pool.execute(sql, [Username], (error, result) => {
-    if (error) {
-      console.log(error);
-      res.sendStatus(500);
-      return;
-    }
+    if (error) return res.sendStatus(500);
     
-    res.status(200).json(result);
-    return;
+    return res.status(200).json(result);
   })
 }

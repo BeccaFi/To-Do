@@ -23,40 +23,27 @@ exports.loginUser = function loginUser (req, res) {
   
     const validation = schema.validate(req.body);
   
-    if (validation.error) {
-      return res.status(400).send(validation.error.details[0].message);
-     }
+    if (validation.error) return res.status(400).send(validation.error.details[0].message);
   
         const sql = `
         SELECT * FROM users
         WHERE username = ?`
   
         pool.execute(sql, [username], (error, result1) => {
-          if (error){
-            console.log(error);
-            res.sendStatus(500);
-            return;
-          }
+          if (error) return res.status(500).send(result1);
   
-          if (result1.length === 0) {
-            return res.status(401).send('The username does not exist');
-          }
+          if (result1.length === 0) return res.status(401).send('The username does not exist');
   
           const userPassword = `
           SELECT password FROM users WHERE username = ?`;
   
           pool.execute(userPassword, [username], (error, result2) => {
-            if (error){
-              console.log(error);
-              res.sendStatus(500);
-              return;
-            }
+            if (error) return res.status(500).send(result2);
+
             const hashedPassword = result2[0].password;
             const passwordsMatch = bcrypt.compareSync(password, hashedPassword);
   
-            if (!passwordsMatch) {
-              return res.status(401).send('The password is incorrect');
-            }
+            if (!passwordsMatch) return res.status(401).send('The password is incorrect');
             
             const userCopy = Object.assign({}, result1[0])
             delete userCopy.Password;

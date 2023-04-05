@@ -9,25 +9,26 @@ const config = {
   };
 const pool = mysql.createPool(config);
 
-exports.addFriend = function addFriend (req, res) {
+exports.toggleTodos = function toggleTodos (req, res) {
     const {Username} = req.user;
-    const {friendToAdd} = req.body;
-  
+    const {todoId} = req.body;
+
     const schema = joi.object({
-      friendToAdd: joi.string().required()
+      todoId: joi.number().required()
     });
   
     const validation = schema.validate(req.body);
   
     if (validation.error) return res.status(500).send(validation.error.details[0].message);
-  
-    const sql = `
-    INSERT INTO Friends (Username, Friend)
-    VALUES (?, ?)`;
-  
-    pool.execute(sql, [Username, friendToAdd], (error, result) => {
-      if (error) return res.sendStatus(500);
 
-      return res.status(201).send(result);
-    })
+  const sql = `
+  UPDATE Todos
+  SET Done = IF(Done=0, 1, 0)
+  WHERE ID = ?`;
+
+  pool.execute(sql, [todoId], (error, result) => {
+    if (error) return res.sendStatus(500);
+
+    return res.status(200).json(result);
+  })
 }

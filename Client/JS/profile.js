@@ -22,8 +22,6 @@ const newTodo = document.querySelector('#newTodo');
 const replaceTodoBtn = document.querySelector('#replaceTodoBtn');
 const submitNewList = document.querySelector('#submitCreatedListBtn');
 const newListTitle = document.querySelector('#newListTitle');
-const allNewTodos = document.querySelectorAll('.allNewTodos');
-const todosArray = [];
 const addedH3 = document.querySelector('#addedH3');
 const deletePopup = document.querySelector('#deleteListPopup');
 const yesBtn = document.querySelector('#yesBtn');
@@ -46,6 +44,7 @@ const cancelAddFriendBtn = document.querySelector('#cancel-add-friend');
 const errorFriendH3 = document.querySelector('#error-friend-h3');
 const arrayOfUsers = [];
 const myFriendsArray = [];
+const alertMessage = '\nOops! There seems to be an issue with the server. Please try again later and contact us if the issue remains.'
 
 
 logo.addEventListener('click', (e) => {
@@ -81,7 +80,6 @@ loginBtn.addEventListener('click', (e) => {
         h2.textContent = `Welcome, ${profileData}!`;
         friendContainer.style.display = 'inline';
         searchForm.style.display = 'inline';
-        // addFriendBtn.style.display = 'inline';
     } else {
         h2.textContent = `You need to sign in to see your profile`;
         allTodos.style.display = 'none';
@@ -118,19 +116,12 @@ loginBtn.addEventListener('click', (e) => {
             addedTodos.appendChild(addedDiv);
             newTodo.value = '';
             newTodo.focus();
-            todosArray.push(todoAdded.innerText);
-            console.log(todosArray);
-    
-            // deleteButtons.forEach(buttonClicked => {
+   
                 deleteBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const chosenToDelete = e.target.parentNode.parentNode;
-                    // const index = todosArray.indexOf(chosenToDelete.childNodes[0].innerText);
                     chosenToDelete.remove();
-                    // todosArray.splice(index, 1);
-                    // console.log(todosArray);
                 })
-            // })
             
     
             editBtn.addEventListener('click', (e) => {
@@ -143,18 +134,12 @@ loginBtn.addEventListener('click', (e) => {
     
                 replaceTodoBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log(chosenToEdit);
                     chosenToEdit.innerText = newTodo.value;
-                    // let index = todosArray.indexOf(chosenToEdit.innerText);
-                    // console.log(todosArray[index]);
-                    // todosArray[index] = chosenToEdit.innerText;
                     replaceTodoBtn.style.display = 'none';
                     addTodoBtn.style.display = 'inline';
                     newTodo.value = '';
                     newTodo.focus();
-                    // console.log(todosArray);
-                })
-    
+                }, {once: true})
             })
         })
     
@@ -176,16 +161,17 @@ loginBtn.addEventListener('click', (e) => {
                 credentials: "include"
             });
     
-            const newlistResponse = await createNewList.json();
-            console.log(newlistResponse); 
+            const newlistResponse = await createNewList.text();
     
             if(createNewList.status !== 201) {
-                console.log(newlistResponse.status + ' Something went wrong');
+                addedH3.style.display = 'inline';
+                addedH3.innerText = newlistResponse;
             } else {
+                const allNewTodos = document.querySelectorAll('.allNewTodos');
 
-                todosArray.forEach(async (currentTodo) => {
-    
-                    const todo = currentTodo;
+                allNewTodos.forEach(async (currentTodo) => {
+                    
+                    const todo = currentTodo.innerText;
         
                     const createTodos = await fetch('http://localhost:5050/profile/createTodos', {
                     method: 'POST',
@@ -198,10 +184,15 @@ loginBtn.addEventListener('click', (e) => {
         
                 
                     const createTodoResponse = await createTodos.text();
-                    console.log(createTodoResponse); 
 
-                    addedH3.style.display = 'inline';
-
+                    if(createTodos.status !== 201){
+                        addedH3.style.display = 'inline';
+                        addedH3.innerText = createTodoResponse;
+                    } else {
+                        newListTitle.style.border = '1px solid black';
+                        addedH3.style.display = 'inline';
+                        addedH3.innerText = 'List created!';
+                    }
                 })
             }
         })
@@ -214,7 +205,10 @@ loginBtn.addEventListener('click', (e) => {
 
 
 
-    //Hämta todolistor:
+
+
+
+    //Get todo lists:
 
     const listsResponse = await fetch('http://localhost:5050/profile/todoLists', {
         method: 'GET',
@@ -226,69 +220,60 @@ loginBtn.addEventListener('click', (e) => {
 
     const listsData = await listsResponse.json();
 
-    console.log(listsData);
-
-
     listsData.forEach(element => {
         const listDiv = document.createElement('div');
         const todoListName = document.createElement('button');
         const listButtonsDiv = document.createElement('div');
-        const editButton = document.createElement('button');
+        // const editButton = document.createElement('button');
         const deleteButton = document.createElement('button');
         listDiv.className = 'listDiv';
         listDiv.name = element.List_ID;
         todoListName.className = 'todoList';
         todoListName.innerText = element.ListName;
         listButtonsDiv.className = 'listButtonsDiv';
-        editButton.className = 'editListButtons';
-        editButton.innerText = 'Edit';
+        // editButton.className = 'editListButtons';
+        // editButton.innerText = 'Edit';
         deleteButton.className = 'deleteListButtons';
         deleteButton.innerText = 'Delete';
-        listButtonsDiv.append(editButton, deleteButton);
+        listButtonsDiv.append(deleteButton);
         listDiv.append(todoListName, listButtonsDiv);
         allTodos.appendChild(listDiv);
 
+        //Vet att listButtonsDiv är onödig, hade den bara först för att kunna lägga editButton och deleteButton i en flexbox men nu behövdes inte editButton mer... och jag orkar inte fixa om för då måste jag ändra parentNode och allt :(
 
         deleteButton.addEventListener('click', (e) => {
             e.preventDefault();
 
             const listToDelete = e.target.parentNode.parentNode.name;
-            console.log(listToDelete);
-
             deletePopup.style.display = 'inline';
 
             noBtn.addEventListener('click', (e) => {
                 deletePopup.style.display = 'none';
-            })
+            });
 
             yesBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
                 deletePopup.style.display = 'none';
-                const deleteListResponse = await fetch('http://localhost:5050/profile/deleteList', {
+                const deleteListResponse = await fetch(`http://localhost:5050/profile/deleteList?listId=${listToDelete}`, {
                     method: 'DELETE',
-                    body: JSON.stringify({listToDelete}),
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     credentials: 'include'
-                })
+                });
     
+              
+                if(deleteListResponse.status !== 200){
+                    alert(deleteListResponse.statusText + alertMessage);
+                    return;
+                }
                 const deleteListData = await deleteListResponse.json();
-                console.log(deleteListData);
+
+                location.reload();
             })
-
-          
         })
-
-    
-
-
     });
 
     const todoLists = document.querySelectorAll('.todoList');
-    // const listArray = Array.from(todoLists);
-
-    // console.log(listArray);
 
     todoLists.forEach(list => {
         list.addEventListener('click', async (e) => {
@@ -298,8 +283,12 @@ loginBtn.addEventListener('click', (e) => {
             chosenList.style.display = 'inline';
             createList.style.display = 'none';
 
+            const listIndex = listsData.findIndex(lista => lista.ListName === list.innerText);
+            const clickedListID = listsData[listIndex].List_ID;
 
-            const todoResponse = await fetch('http://localhost:5050/profile/todos', {
+
+            // Get todos from clicked list
+            const todoResponse = await fetch(`http://localhost:5050/profile/todos?listId=${clickedListID}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -307,57 +296,69 @@ loginBtn.addEventListener('click', (e) => {
                 credentials: 'include'
             })
 
-
-            const listIndex = listsData.findIndex(lista => lista.ListName === list.innerText);
-            const clickedList = listsData[listIndex];
-            const clickedListID = listsData[listIndex].List_ID;
-
             const todoData = await todoResponse.json();
 
             todoData.forEach(todo => {
-                if (todo.List_ID === clickedListID){
-                    // const eachTodo = document.createElement('div');
                     const singleTodo = document.createElement('li');
-                    // const checkbox = document.createElement('input');
-                    // eachTodo.className = 'eachTodo';
-                    // checkbox.type = 'checkbox';
-                    // checkbox.className = 'checkbox';
-                    // eachTodo.append(singleTodo, checkbox);
-                    singleTodo.classList.add('chosenSingleTodos');
+                    singleTodo.dataset.id = todo.ID;
                     singleTodo.innerText = todo.Todo;
-                    todoUl.appendChild(singleTodo);
+                    const deleteTodoBtn = document.createElement('button');
+                    deleteTodoBtn.innerText = 'Remove task';
+                    todoUl.append(singleTodo, deleteTodoBtn);
 
-                    // console.log(todoUl);
+                    const todoId = singleTodo.dataset.id;
 
-                 
-                
-                }  
+                    singleTodo.classList.add('chosenSingleTodos')
 
+                    if(todo.Done === 1){
+                        singleTodo.classList.toggle('checked');
+                        }
+    
+                    singleTodo.addEventListener('click', async (e) => {
+                        
+                        singleTodo.classList.toggle('checked');
+
+                        const toggleTodoResponse = await fetch(`http://localhost:5050/profile/toggleTodos`, {
+                            method: 'PATCH',
+                            body: JSON.stringify({todoId}),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'include'
+                        });
+
+                        if(toggleTodoResponse.status !== 200) {
+                            alert(toggleTodoResponse.statusText + alertMessage);
+                            return;
+                        }
+                    })
+
+                    deleteTodoBtn.addEventListener('click', async (e) => {
+                        
+                        const deleteTodoResponse = await fetch(`http://localhost:5050/profile/deleteTodos?todoId=${todoId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            credentials: 'include'
+                        });
+
+
+                        if(deleteTodoResponse.status !== 200){
+                            alert(deleteTodoResponse.statusText + alertMessage);
+                            return;
+                        }
+                        location.reload();
+                    })
             })
-
-           
-
-           
-
-
-            const chosenSingleTodos = document.querySelectorAll('.chosenSingleTodos');
-            const newArray = Array.from(chosenSingleTodos);
-            console.log(newArray[0]);
-
-            newArray.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.target.classList.toggle('checked');
-                })
-            })
-            //     singleTodo.addEventListener('click', (e) => {
-            //     console.log(e.target.classList);
-            //     e.target.classList.add('checked');
-            //     e.target.classList.toggle('checked');
-            // })
         })
-
     })
+
+
+
+
+
+
 
 
 
@@ -373,7 +374,6 @@ loginBtn.addEventListener('click', (e) => {
     })
 
     const friendsData = await friendsResponse.json();
-    console.log(friendsData);
 
     friendsData.forEach(element => {
         const friend = document.createElement('button');
@@ -391,18 +391,7 @@ loginBtn.addEventListener('click', (e) => {
         friend.addEventListener('click', async (e) => { 
             e.preventDefault();
             
-            const clickedFriend = e.target.innerText;
-
-            const friendProfileResponse = await fetch('http://localhost:5050/friends/profile', {
-                method: 'POST',
-                body: JSON.stringify({clickedFriend}),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
-            });
-
-            const friendProfileData = await friendProfileResponse.text();
+            const clickedFriend = e.target.innerText;    
 
             h2.textContent = `${clickedFriend}'s profile`;
             friendContainer.style.display = 'none';
@@ -425,8 +414,7 @@ loginBtn.addEventListener('click', (e) => {
                     e.preventDefault();
 
                     unfriendDiv.style.display = 'none';
-                    location.reload();
-
+                 
                     const unfriendResponse = await fetch(`http://localhost:5050/friends/remove?Friend=${clickedFriend}`, {
                         method: 'DELETE',
                         headers: {
@@ -435,12 +423,17 @@ loginBtn.addEventListener('click', (e) => {
                         credentials: 'include'
                     });
 
-                    const unfriendData = await unfriendResponse.json();
-                    // console.log(unfriendData);
+                    if(unfriendResponse.status !== 200){
+                        alert(unfriendResponse.statusText + alertMessage);
+                        return;
+                    }
 
+                    location.reload();
                 })
             })
 
+
+        // Get friends todo lists
     const friendListsResponse = await fetch(`http://localhost:5050/friends/todoLists?Friend=${clickedFriend}`, {
         method: 'GET',
         headers: {
@@ -450,9 +443,6 @@ loginBtn.addEventListener('click', (e) => {
     });
 
     const friendListsData = await friendListsResponse.json();
-
-    console.log(friendListsData);
-
 
     friendListsData.forEach(element => {
         const friendTodoListName = document.createElement('button');
@@ -464,18 +454,15 @@ loginBtn.addEventListener('click', (e) => {
     const friendTodoLists = document.querySelectorAll('.friendTodoList');
 
 
-
-
-
     friendTodoLists.forEach(list => {
         list.addEventListener('click', async (e) => {
             e.preventDefault();
             friendTodoUl.innerHTML = "";
             friendClickedTitle.innerText = list.innerText;
             friendClickedListContainer.style.display = 'inline';
-            // createList.style.display = 'none';
 
 
+            //Get todos of the clicked list
             const friendTodoResponse = await fetch(`http://localhost:5050/friends/todos`, {
                 method: 'GET',
                 headers: {
@@ -494,28 +481,28 @@ loginBtn.addEventListener('click', (e) => {
             friendTodoData.forEach(todo => {
                 if (todo.List_ID === friendClickedListID){
                     const friendSingleTodo = document.createElement('li');
-                    friendSingleTodo.classList.add('friendChosenSingleTodos');
                     friendSingleTodo.innerText = todo.Todo;
                     friendTodoUl.appendChild(friendSingleTodo);
-
-
-                 
-                
-                }  
-
+                    if(todo.Done === 1){
+                    friendSingleTodo.classList.add('friendTodosChecked');
+                    } else {
+                        friendSingleTodo.classList.add('friendChosenSingleTodos');
+                    }
+                }
             })
-       
         })
-
     })
-
-
-
-
         })
-
     });
 
+
+
+
+
+
+
+
+    // Searching users and adding new friends
     const allUsersResponse = await fetch('http://localhost:5050/profile/users', {
         method: 'GET',
         headers: {
@@ -530,9 +517,7 @@ loginBtn.addEventListener('click', (e) => {
         arrayOfUsers.push(user.Username);
     })
 
-    const sortedUsers = arrayOfUsers.sort(); //Kanske onödig?
-    console.log(arrayOfUsers);
-    console.log(sortedUsers);
+    const sortedUsers = arrayOfUsers.sort(); //Might be unnecessary
 
     searchInput.addEventListener('keyup', (e) => {
 
@@ -557,11 +542,11 @@ loginBtn.addEventListener('click', (e) => {
                         removeElements();
                     })
                 })
-          
             }
         }
     });
   
+
     addFriendBtn.addEventListener('click', async (e) => {
         e.preventDefault();
         if(!arrayOfUsers.includes(searchInput.value)){
@@ -591,7 +576,6 @@ loginBtn.addEventListener('click', (e) => {
             return;
         }
 
-        
         const friendToAdd = searchInput.value;
 
         addFriendPopup.style.display = 'inline';
@@ -611,10 +595,12 @@ loginBtn.addEventListener('click', (e) => {
                 },
                 credentials: 'include'
             })
-
+            if(addFriendResponse.status !== 201){
+                alert(addFriendResponse.statusText + alertMessage);
+                return;
+            }
             const addFriendData = await addFriendResponse.json();
-            console.log(addFriendData);
-            
+            location.reload();
           
         })
 
@@ -625,6 +611,9 @@ loginBtn.addEventListener('click', (e) => {
        
     })
 }
+
+
+
 
 
 function removeElements(){

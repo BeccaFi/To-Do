@@ -36,12 +36,16 @@ form.addEventListener('submit', async (e) => {
     });
 
     const data = await response.text();
+    console.log(data);
+
+    if(response.status !== 200){
+        h2.innerText = response.status + '' + data;
+        return;
+    }
 
     if (response.status === 200) {
         window.location.href = './profile.html';
-        // profileBtn.style.display = 'inline';
-        // registerBtn.style.display = 'none';
-        h2.textContent = response.status + ' ' + data;
+        h2.innerText = response.status + ' ' + data;
         profileBtn.addEventListener('click', (e) => {
             window.location.href = './profile.html';
         })

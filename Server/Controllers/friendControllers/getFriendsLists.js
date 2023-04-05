@@ -10,21 +10,14 @@ const pool = mysql.createPool(config);
 
 exports.getFriendsLists = function getFriendsLists (req, res) {
     const {Username} = req.user;
-
     const {Friend} = req.query;
 
-    
   const sql = `
   SELECT * FROM ToDoLists WHERE Username = ?`;
 
   pool.execute(sql, [Friend], (error, result) => {
-    if (error) {
-      console.log(error);
-      res.sendStatus(500);
-      return;
-    }
+    if (error) return res.sendStatus(500);
     
-    res.status(200).json(result);
-    return;
+    return res.status(200).json(result);
   })
 }
