@@ -299,24 +299,29 @@ loginBtn.addEventListener('click', (e) => {
             const todoData = await todoResponse.json();
 
             todoData.forEach(todo => {
+                    const todoDiv = document.createElement('div');
                     const singleTodo = document.createElement('li');
                     singleTodo.dataset.id = todo.ID;
                     singleTodo.innerText = todo.Todo;
                     const deleteTodoBtn = document.createElement('button');
-                    deleteTodoBtn.innerText = 'Remove task';
-                    todoUl.append(singleTodo, deleteTodoBtn);
+                    todoDiv.classList.add('todo-div');
+                    deleteTodoBtn.classList.add('deleteTodoBtn');
+                    deleteTodoBtn.innerText = 'Remove';
+                    todoDiv.append(singleTodo, deleteTodoBtn);
+                    todoUl.appendChild(todoDiv);
 
                     const todoId = singleTodo.dataset.id;
 
-                    singleTodo.classList.add('chosenSingleTodos')
+                    todoDiv.classList.add('chosenSingleTodos')
 
                     if(todo.Done === 1){
-                        singleTodo.classList.toggle('checked');
+                        todoDiv.classList.toggle('checked');
+                        singleTodo.style.textDecoration = 'line-through';
                         }
     
-                    singleTodo.addEventListener('click', async (e) => {
+                    todoDiv.addEventListener('click', async (e) => {
                         
-                        singleTodo.classList.toggle('checked');
+                        todoDiv.classList.toggle('checked');
 
                         const toggleTodoResponse = await fetch(`http://localhost:5050/profile/toggleTodos`, {
                             method: 'PATCH',
@@ -398,7 +403,7 @@ loginBtn.addEventListener('click', (e) => {
             profileContainers.style.display = 'none';
             searchForm.style.display = 'none';
             friendProfile.style.display = 'flex';
-            unfriend.style.display = 'block';
+            unfriend.style.display = 'inline';
             profileBtn.style.display = 'inline';
             createBtn.style.display = 'none';
 

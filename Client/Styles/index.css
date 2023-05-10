@@ -12,8 +12,7 @@ header {
 #logo {
     font-size: 30px;
     font-family: cursive;
-    text-decoration: underline;
-    color: purple;
+    color: rgb(73, 105, 180);
     margin-left: 20px;
 }
 
@@ -27,7 +26,7 @@ header div {
 }
 
 #profile-btn {
-    background-color: purple;
+    background-color: rgb(73, 105, 180);
     color: white;
     border-radius: 10px;
     border: none;
@@ -36,7 +35,7 @@ header div {
 }
 
 #login-btn {
-    background-color: purple;
+    background-color: rgb(73, 105, 180);
     color: white;
     border-radius: 10px;
     border: none;

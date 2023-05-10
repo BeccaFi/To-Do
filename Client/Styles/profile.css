@@ -16,8 +16,7 @@ header {
 #logo {
     font-size: 30px;
     font-family: cursive;
-    text-decoration: underline;
-    color: purple;
+    color: rgb(73, 105, 180);
     margin-left: 20px;
 }
 
@@ -63,7 +62,7 @@ header {
 }
 
 #profile-btn {
-    background-color: purple;
+    background-color: rgb(73, 105, 180);
     color: white;
     border-radius: 10px;
     border: none;
@@ -81,7 +80,7 @@ header {
 }
 
 #create-btn {
-    background-color: purple;
+    background-color: rgb(73, 105, 180);
     color: white;
     border-radius: 10px;
     border: none;
@@ -111,7 +110,7 @@ h2 {
 } */
 
 #all-todos {
-    border: solid 1px black;
+    border: none;
     width: 300px;
     margin: 50px 10px 10px 20px;
 }
@@ -123,7 +122,7 @@ h3 {
 
 #all-todos button {
     list-style: none;
-    background-color: rgb(158, 158, 158);
+    background-color: rgb(219, 219, 219);
     display: block;
     margin-bottom: 2px;
     padding: 6px;
@@ -133,26 +132,41 @@ h3 {
 }
 
 #all-todos button:hover {
-    filter: brightness(150%);
+    filter: brightness(110%);
     cursor: pointer;
 }
 
 #chosen-list {
-    border: solid 1px black;
+    margin-top: 2rem;
+    border: none;
     width: 500px;
-    margin-left: 3rem;
+    margin-left: 9rem;
     display: none;
+}
+
+.todo-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteTodoBtn {
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+}
+
+.deleteTodoBtn:hover {
+    background-color: rgb(231, 230, 230);
+    border-radius: 10px;
 }
 
 #search-form {
     width: 300px;
-    /* height: 50%; */
     position: absolute;
     right: 5rem;
-    top: 20%;
+    margin-top: 1.5rem;
     z-index: 1000000;
     display: none;
-    /* background-color: white; */
 }
 
 #search {
@@ -163,10 +177,8 @@ h3 {
 
 #search-input {
     width: 80%;
-    /* height: 100%; */
     padding: 4px 8px;
     outline: none;
-    /* border-radius: 5px 5px 0 0; */
     font-size: 16px;
 }
 
@@ -193,13 +205,12 @@ h3 {
 
 #add-friend-btn {
     top: 20%;
-    background-color: purple;
+    background-color: rgb(73, 105, 180);
     color: white;
     border-radius: 10px;
     border: none;
     padding: 8px 14px;
     font-size: 14px;
-    /* margin: 0 0 0 1rem; */
     float: right;
 }
 #error-friend-popup {
@@ -289,19 +300,20 @@ display: none;
 .friends {
     border: none;
     width: 100%;
-    background-color: beige;
+    background-color: rgb(230, 237, 251);
 }
 
 .friends:hover {
     cursor: pointer;
-    filter: brightness(150%);
+    filter: brightness(120%);
 }
 
 
 #create-form {
     border: solid 1px black;
     width: 550px;
-    margin-left: 3rem;
+    margin-top: 2rem;
+    margin-left: 7.3rem;
     display: none;
 }
 
@@ -347,7 +359,7 @@ button {
 
 
 .chosenSingleTodos {
-    background-color: rgb(242, 228, 228);
+    background-color: rgb(255, 244, 244);
     width: 100%;
     list-style: none;
     overflow: hidden;
@@ -360,7 +372,7 @@ button {
 
 .chosenSingleTodos:hover {
     cursor: pointer;
-    filter: brightness(150%);
+    filter: brightness(103%);
 }
 
 #todo-ul {
@@ -371,8 +383,8 @@ button {
 }
 
 .checked {
-    background-color: rgb(72, 252, 120);
-    text-decoration: line-through;
+    background-color: rgb(226, 255, 234);
+    /* text-decoration: line-through; */
     width: 100%;
     list-style: none;
     overflow: hidden;
@@ -523,8 +535,8 @@ button {
     border: 2px solid black;
     padding: 8px 14px;
     font-size: 18px;
-    position: absolute;
-    margin: -50px 0px 0px 25px;
+    /* position: absolute; */
+    margin: 2rem 0px 0px 25px;
     display: none;
     
 }

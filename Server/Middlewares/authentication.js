@@ -13,7 +13,7 @@ function authentication(req, res, next) {
       res.status(401).send('Invalid token');
     }
     
-    next();  
+    next();
   }
 
 exports.authentication = authentication;
